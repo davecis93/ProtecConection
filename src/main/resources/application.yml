@@ -1,0 +1,22 @@
+spring:
+  profiles: dev
+  jpa:
+    generate-ddl: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+server:
+  port: 8081
+ui-url: http://localhost:9000/
+---
+spring:
+  profiles: dev
+  http:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+  data:
+    rest:
+      basePath: /api/v1
+      defaultMediaType: application/json
