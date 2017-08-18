@@ -28,6 +28,7 @@ public class CostosController {
 
     @PostMapping(value = "/costos/asignar")
     public ResponseEntity<Object> asignarCostos(@RequestBody CostosDTO costosDTO){
+        System.out.println(costosDTO.getC1());
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(costosService.asignarCostos(costosDTO));
