@@ -23,11 +23,11 @@ public class ContactoTerminoController {
                 .body(consultaPlacasContactoTermino.consultaPlacasContactoTermino(id));
     }
 
-//    @PostMapping(value = "/confirmarcontacto")
-//    public ResponseEntity<Object> confirmaContactoTerminoServicio(@RequestBody ConfirmaContactoDTO confirmaContactoDTO){
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .body(consultaPlacasContactoTermino.confirmaContactoTerminoServicio(confirmaContactoDTO));
-//    }
+    @PostMapping(value = "/confirmarcontacto")
+    public ResponseEntity<Object> confirmaContactoTerminoServicio(@RequestBody ConfirmaContactoDTO confirmaContactoDTO){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(consultaPlacasContactoTermino.confirmaContactoTerminoServicio(confirmaContactoDTO));
+    }
 
 }

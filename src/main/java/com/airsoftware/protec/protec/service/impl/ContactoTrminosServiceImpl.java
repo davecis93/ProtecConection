@@ -1,5 +1,6 @@
 package com.airsoftware.protec.protec.service.impl;
 
+import com.airsoftware.protec.protec.model.request.ConfirmaContactoDTO;
 import com.airsoftware.protec.protec.service.ContactoTerminoService;
 import com.airsoftware.protec.protec.service.ProveedorService;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,7 +33,6 @@ public class ContactoTrminosServiceImpl implements ContactoTerminoService {
 
 
     public Object consultaPlacasContactoTermino(Long idOt){
-        System.out.println(idOt);
         Object response1 = new Object();
 
         try{
@@ -54,6 +54,43 @@ public class ContactoTrminosServiceImpl implements ContactoTerminoService {
 
             ResponseEntity<Object> response = restTemplate.postForEntity( PROTEC_ENDPOINT + "ConsultaPlacasContactoTermino/", request , Object.class );
 
+
+            System.out.println(response.getBody().toString());
+
+            response1 = response.getBody();
+
+        }catch(Exception ex) {
+            logger.error("Error al consultar el ws protec.", ex);
+        }
+
+        return response1;
+    }
+
+    public Object confirmaContactoTerminoServicio(ConfirmaContactoDTO confirmaContactoDTO){
+        Object response1 = new Object();
+
+        try{
+
+            logger.info(PROTEC_SECRET);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+            headers.set("Authorization", "Basic "+PROTEC_SECRET);
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+            MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+            map.add("idOt", ""+confirmaContactoDTO.getIdOt()+"");
+            map.add("placas", confirmaContactoDTO.getPlacas());
+            map.add("horaContacto", confirmaContactoDTO.getHoraContacto());
+            map.add("horaTermino", confirmaContactoDTO.getHoraTermino());
+            map.add("comentarios", confirmaContactoDTO.getComentarios());
+            map.add("idRvt", ""+confirmaContactoDTO.getIdRvt()+"");
+
+            HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
+
+            ResponseEntity<Object> response = restTemplate.postForEntity( PROTEC_ENDPOINT + "ConfirmaContactoTerminoServicio/", request , Object.class );
 
             System.out.println(response.getBody().toString());
 
