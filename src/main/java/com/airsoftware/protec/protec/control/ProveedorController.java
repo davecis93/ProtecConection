@@ -19,7 +19,7 @@ public class ProveedorController {
     private ProveedorService proveedorService;
 
     @GetMapping(value = "/proveedor/{id}")
-    public ResponseEntity<Provider> obtenerDatosProveedor(@PathVariable("id") Long idProveedor){
+    public ResponseEntity<Object> obtenerDatosProveedor(@PathVariable("id") Long idProveedor){
 
         return ResponseEntity
                 .status(HttpStatus.OK)

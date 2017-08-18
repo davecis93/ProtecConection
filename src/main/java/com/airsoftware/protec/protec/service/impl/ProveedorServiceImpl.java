@@ -2,6 +2,7 @@ package com.airsoftware.protec.protec.service.impl;
 
 import com.airsoftware.protec.protec.model.Provider;
 import com.airsoftware.protec.protec.service.ProveedorService;
+import com.sun.net.httpserver.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -13,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by areyna on 2/17/17.
@@ -30,9 +32,9 @@ public class ProveedorServiceImpl implements ProveedorService {
     public String PROTEC_SECRET;
 
 
-    public Provider obtenerDatosProovedor(Long idProveedor){
+    public Object obtenerDatosProovedor(Long idProveedor){
 
-        Provider provider = new Provider();
+        Object response1 = new Object();
 
         try{
 
@@ -42,41 +44,27 @@ public class ProveedorServiceImpl implements ProveedorService {
 
 
             HttpHeaders headers = new HttpHeaders();
-//            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
             headers.set("Authorization", "Basic "+PROTEC_SECRET);
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-            MultiValueMap<String, Long> map= new LinkedMultiValueMap<String, Long>();
-            map.add("idProveedor", idProveedor);
+            MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+            map.add("idProveedor", ""+idProveedor+"");
 
-            HttpEntity<MultiValueMap<String, Long>> request = new HttpEntity<MultiValueMap<String, Long>>(map, headers);
+            HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 
-            ResponseEntity<String> response = restTemplate.postForEntity( PROTEC_ENDPOINT + "obtenerDatosProveedor/", request , String.class );
-
-
-
-//            HttpHeaders headers = new HttpHeaders();
-//            String input = "{\"idProveedor\":\""+idProveedor+"\"}";
-//
-//            System.out.println(input);
-//
-//            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-//            headers.set("Authorization", "Basic "+PROTEC_SECRET);
-//
-//            HttpEntity<String> entity = new HttpEntity<String>(input, headers);
-//
-//            ResponseEntity<Provider> proveedor = restTemplate.exchange(PROTEC_ENDPOINT + "obtenerDatosProveedor/", HttpMethod.POST, entity, Provider.class);
-
-            System.out.println(response.getBody());
-            // = response.getBody();
+            ResponseEntity<Object> response = restTemplate.postForEntity( PROTEC_ENDPOINT + "obtenerDatosProveedor/", request , Object.class );
 
 
+            System.out.println(response.getBody().toString());
+
+            response1 = response.getBody();
 
         }catch(Exception ex) {
             logger.error("Error al consultar el ws protec.", ex);
         }
 
-        return provider;
+        return response1;
     }
 
 }

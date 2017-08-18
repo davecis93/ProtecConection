@@ -7,7 +7,7 @@ import com.airsoftware.protec.protec.model.request.ServicioDTO;
 public interface ProveedorService {
 
 
-    Provider obtenerDatosProovedor(Long idProveedor);
+    Object obtenerDatosProovedor(Long idProveedor);
 
 
     //Provider asignarServicioProveedor(ServicioDTO servicioDTO);
