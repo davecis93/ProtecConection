@@ -1,7 +1,6 @@
 package com.airsoftware.protec.protec.control;
 
 
-import com.airsoftware.protec.protec.model.Class1;
 import com.airsoftware.protec.protec.model.request.ConfirmaContactoDTO;
 import com.airsoftware.protec.protec.service.ContactoTerminoService;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
@@ -16,14 +15,14 @@ public class ContactoTerminoController {
     ContactoTerminoService consultaPlacasContactoTermino;
 
     @GetMapping(value = "/consultaPlacas/{idOt}")
-    public ResponseEntity<Class1> consultaPlacasContactoTermino(@PathVariable long idOt){
+    public ResponseEntity<ConfirmaContactoDTO> consultaPlacasContactoTermino(@PathVariable long idOt){
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(consultaPlacasContactoTermino.consultaPlacasContactoTermino(idOt));
     }
 
     @PostMapping(value = "/confirmarcontacto")
-    public ResponseEntity<Class1> confirmaContactoTerminoServicio(@RequestBody ConfirmaContactoDTO confirmaContactoDTO){
+    public ResponseEntity<ConfirmaContactoDTO> confirmaContactoTerminoServicio(@RequestBody ConfirmaContactoDTO confirmaContactoDTO){
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(consultaPlacasContactoTermino.confirmaContactoTerminoServicio(confirmaContactoDTO));

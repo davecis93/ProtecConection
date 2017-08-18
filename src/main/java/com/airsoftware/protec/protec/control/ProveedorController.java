@@ -18,22 +18,18 @@ public class ProveedorController {
     @Autowired
     private ProveedorService proveedorService;
 
-<<<<<<< HEAD
     @GetMapping(value = "/proveedor/{id}")
     public ResponseEntity<Provider> obtenerDatosProveedor(@PathVariable("id") Long idProveedor){
-=======
-    @PostMapping(value = "/proveedor/obtener")
-    public ResponseEntity<Class1> obtenerDatosProveedor(@RequestBody ProveedorDTO proveedorDTO){
->>>>>>> e7009f97904a01f0a5454f9f5ddc1be83281e089
+
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(proveedorService.obtenerDatosProovedor(idProveedor));
     }
 
-    @PostMapping(value = "/proveedor/asignar")
-    public ResponseEntity<Class1> asignarServicioProveedor(@RequestBody ServicioDTO servicioDTO){
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(proveedorService.asignarServicioProveedor(servicioDTO));
-    }
+//    @PostMapping(value = "/proveedor/asignar")
+//    public ResponseEntity<Provider> asignarServicioProveedor(@RequestBody ServicioDTO servicioDTO){
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .body(proveedorService.asignarServicioProveedor(servicioDTO));
+//    }
 }
