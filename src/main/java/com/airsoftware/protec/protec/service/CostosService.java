@@ -5,8 +5,8 @@ import com.airsoftware.protec.protec.model.request.GetCostosDTO;
 
 public interface CostosService {
 
-    CostosDTO obtenerCostos (GetCostosDTO getCostosDTO);
+    Object obtenerCostos (GetCostosDTO getCostosDTO);
 
-    CostosDTO asignarCostos (CostosDTO costosDTO);
+    Object asignarCostos (CostosDTO costosDTO);
 
 }
