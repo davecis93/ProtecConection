@@ -20,3 +20,7 @@ spring:
     rest:
       basePath: /api/v1
       defaultMediaType: application/json
+endpoints:
+  shutdown:
+    sensitive: false
+    enabled: true
