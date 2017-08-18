@@ -10,6 +10,6 @@ public interface ProveedorService {
     Object obtenerDatosProovedor(Long idProveedor);
 
 
-    //Provider asignarServicioProveedor(ServicioDTO servicioDTO);
+    Object asignarServicioProveedor(ServicioDTO servicioDTO);
 
 }

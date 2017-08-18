@@ -4,7 +4,7 @@ import com.airsoftware.protec.protec.model.request.ConfirmaContactoDTO;
 
 public interface ContactoTerminoService {
 
-    ConfirmaContactoDTO consultaPlacasContactoTermino(long idOt);
+    Object consultaPlacasContactoTermino(Long idOt);
 
-    ConfirmaContactoDTO confirmaContactoTerminoServicio(ConfirmaContactoDTO confirmaContactoDTO);
+    Object confirmaContactoTerminoServicio(ConfirmaContactoDTO confirmaContactoDTO);
 }
