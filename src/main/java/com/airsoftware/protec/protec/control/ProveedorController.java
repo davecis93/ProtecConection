@@ -26,10 +26,10 @@ public class ProveedorController {
                 .body(proveedorService.obtenerDatosProovedor(idProveedor));
     }
 
-//    @PostMapping(value = "/proveedor/asignar")
-//    public ResponseEntity<Provider> asignarServicioProveedor(@RequestBody ServicioDTO servicioDTO){
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .body(proveedorService.asignarServicioProveedor(servicioDTO));
-//    }
+    @PostMapping(value = "/proveedor/asignar")
+    public ResponseEntity<Object> asignarServicioProveedor(@RequestBody ServicioDTO servicioDTO){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(proveedorService.asignarServicioProveedor(servicioDTO));
+    }
 }
