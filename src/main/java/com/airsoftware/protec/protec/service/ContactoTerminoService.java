@@ -7,4 +7,5 @@ public interface ContactoTerminoService {
     Object consultaPlacasContactoTermino(Long idOt);
 
     Object confirmaContactoTerminoServicio(ConfirmaContactoDTO confirmaContactoDTO);
+
 }

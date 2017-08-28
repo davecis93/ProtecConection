@@ -1,7 +1,7 @@
 package com.airsoftware.protec.protec.service.impl;
 
-import com.airsoftware.protec.protec.model.request.ConfirmaContactoDTO;
-import com.airsoftware.protec.protec.service.ContactoTerminoService;
+import com.airsoftware.protec.protec.model.request.ServicioDTO;
+import com.airsoftware.protec.protec.service.LocalidadService;
 import com.airsoftware.protec.protec.service.ProveedorService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -22,9 +22,9 @@ import java.util.Arrays;
  */
 @Service
 @Transactional
-public class ContactoTrminosServiceImpl implements ContactoTerminoService {
+public class LocalidadServiceImpl implements LocalidadService {
 
-    private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(ContactoTrminosServiceImpl.class);
+    private org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(LocalidadServiceImpl.class);
 
     @Value("http://201.161.41.142/wsRemoto2/")
     public String PROTEC_ENDPOINT;
@@ -33,8 +33,36 @@ public class ContactoTrminosServiceImpl implements ContactoTerminoService {
     public String PROTEC_SECRET;
 
 
-    public Object consultaPlacasContactoTermino(Long idOt){
-        Object response1 = new Object();
+    public Object obtenerEstados() {
+        Object response1 = new ArrayList<>();
+
+        try{
+
+            logger.info(PROTEC_SECRET);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+            headers.set("Authorization", "Basic "+PROTEC_SECRET);
+            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+
+            HttpEntity entity = new HttpEntity(headers);
+
+            ResponseEntity<Object> response = restTemplate.postForEntity( PROTEC_ENDPOINT + "consultaEstados", entity , Object.class );
+
+            response1 =  response.getBody();
+
+        }catch(Exception ex) {
+            logger.error("Error al consultar el ws protec.", ex);
+        }
+
+        return response1;
+    }
+
+    public Object obtenerMunicipios(Long idEstado) {
+        Object response1 = new ArrayList<>();
 
         try{
 
@@ -49,14 +77,11 @@ public class ContactoTrminosServiceImpl implements ContactoTerminoService {
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
             MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
-            map.add("idOt", ""+idOt+"");
+            map.add("idEstado", ""+idEstado+"");
 
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 
-            ResponseEntity<Object> response = restTemplate.postForEntity( PROTEC_ENDPOINT + "ConsultaPlacasContactoTermino/", request , Object.class );
-
-
-            System.out.println(response.getBody().toString());
+            ResponseEntity<Object> response = restTemplate.postForEntity( PROTEC_ENDPOINT + "consultaMunicipios", request , Object.class );
 
             response1 = response.getBody();
 
@@ -66,42 +91,4 @@ public class ContactoTrminosServiceImpl implements ContactoTerminoService {
 
         return response1;
     }
-
-    public Object confirmaContactoTerminoServicio(ConfirmaContactoDTO confirmaContactoDTO){
-        Object response1 = new Object();
-
-        try{
-
-            logger.info(PROTEC_SECRET);
-
-            RestTemplate restTemplate = new RestTemplate();
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-            headers.set("Authorization", "Basic "+PROTEC_SECRET);
-            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-            MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
-            map.add("idOt", ""+confirmaContactoDTO.getIdOt()+"");
-            map.add("placas", confirmaContactoDTO.getPlacas());
-            map.add("horaContacto", confirmaContactoDTO.getHoraContacto());
-            map.add("horaTermino", confirmaContactoDTO.getHoraTermino());
-            map.add("comentarios", confirmaContactoDTO.getComentarios());
-            map.add("idRvt", ""+confirmaContactoDTO.getIdRvt()+"");
-
-            HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
-
-            ResponseEntity<Object> response = restTemplate.postForEntity( PROTEC_ENDPOINT + "ConfirmaContactoTerminoServicio/", request , Object.class );
-
-            System.out.println(response.getBody().toString());
-
-            response1 = response.getBody();
-
-        }catch(Exception ex) {
-            logger.error("Error al consultar el ws protec.", ex);
-        }
-
-        return response1;
-    }
-
 }
