@@ -26,6 +26,13 @@ public class CostosController {
                 .body(costosService.obtenerCostos(getCostosDTO));
     }
 
+    @PostMapping(value = "/costos/obtenerPorPlano")
+    public ResponseEntity<Object> obtenerCostosPorPlano(@RequestBody GetCostosDTO getCostosDTO){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(costosService.obtenerCostosPorPlano(getCostosDTO));
+    }
+
     @PostMapping(value = "/costos/asignar")
     public ResponseEntity<Object> asignarCostos(@RequestBody CostosDTO costosDTO){
         System.out.println(costosDTO.getC1());

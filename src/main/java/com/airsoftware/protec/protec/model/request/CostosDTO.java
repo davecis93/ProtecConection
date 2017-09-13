@@ -19,6 +19,7 @@ public class CostosDTO {
     private double c4;
     private double c5;
     private double c6;
+    private long costoVariable;
 
     public long getIdOt() {
         return idOt;
@@ -154,5 +155,13 @@ public class CostosDTO {
 
     public void setC6(double c6) {
         this.c6 = c6;
+    }
+
+    public long getCostoVariable() {
+        return costoVariable;
+    }
+
+    public void setCostoVariable(long costoVariable) {
+        this.costoVariable = costoVariable;
     }
 }

@@ -7,6 +7,8 @@ public interface CostosService {
 
     Object obtenerCostos (GetCostosDTO getCostosDTO);
 
+    Object obtenerCostosPorPlano (GetCostosDTO getCostosDTO);
+
     Object asignarCostos (CostosDTO costosDTO);
 
 }

@@ -1,6 +1,7 @@
 package com.airsoftware.protec.protec.service.impl;
 
 import com.airsoftware.protec.protec.model.request.ConfirmaContactoDTO;
+import com.airsoftware.protec.protec.model.request.ServicioDTO;
 import com.airsoftware.protec.protec.service.ContactoTerminoService;
 import com.airsoftware.protec.protec.service.ProveedorService;
 import org.springframework.beans.factory.annotation.Value;
@@ -91,7 +92,40 @@ public class ContactoTrminosServiceImpl implements ContactoTerminoService {
 
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 
-            ResponseEntity<Object> response = restTemplate.postForEntity( PROTEC_ENDPOINT + "ConfirmaContactoTerminoServicio/", request , Object.class );
+            ResponseEntity<Object> response = restTemplate.postForEntity( PROTEC_ENDPOINT + "confirmaContactoTerminoServicio/", request , Object.class );
+
+            System.out.println(response.getBody().toString());
+
+            response1 = response.getBody();
+
+        }catch(Exception ex) {
+            logger.error("Error al consultar el ws protec.", ex);
+        }
+
+        return response1;
+    }
+
+    public Object regresarServicioCallCenter(ServicioDTO servicioDTO){
+        Object response1 = new Object();
+
+        try{
+
+            logger.info(PROTEC_SECRET);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+            headers.set("Authorization", "Basic "+PROTEC_SECRET);
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+            MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+            map.add("idOt", ""+servicioDTO.getIdOt()+"");
+            map.add("ip", servicioDTO.getIp());
+
+            HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
+
+            ResponseEntity<Object> response = restTemplate.postForEntity( PROTEC_ENDPOINT + "regresarServicioACallCenter/", request , Object.class );
 
             System.out.println(response.getBody().toString());
 

@@ -62,6 +62,7 @@ public class CostosServiceImpl implements CostosService{
             map.add("c4", ""+costosDTO.getC4()+"");
             map.add("c5", ""+costosDTO.getC5()+"");
             map.add("c6", ""+costosDTO.getC6()+"");
+            map.add("costoVariable", ""+costosDTO.getCostoVariable()+"");
 
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 
@@ -102,6 +103,42 @@ public class CostosServiceImpl implements CostosService{
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 
             ResponseEntity<Object> response = restTemplate.postForEntity( PROTEC_ENDPOINT + "obtenerCostos/", request , Object.class );
+
+
+            System.out.println(response.getBody().toString());
+
+            response1 = response.getBody();
+
+        }catch(Exception ex) {
+            logger.error("Error al consultar el ws protec.", ex);
+        }
+
+        return response1;
+    }
+
+    public Object obtenerCostosPorPlano(GetCostosDTO getCostosDTO){
+        Object response1 = new Object();
+
+        try{
+
+            logger.info(PROTEC_SECRET);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+            headers.set("Authorization", "Basic "+PROTEC_SECRET);
+            headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+            MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
+            map.add("idProveedor", ""+getCostosDTO.getIdProveedor()+"");
+            map.add("idSubServicio", ""+getCostosDTO.getIdSubServicio()+"");
+            map.add("idPlano", ""+getCostosDTO.getIdPlano()+"");
+
+            HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
+
+            ResponseEntity<Object> response = restTemplate.postForEntity( PROTEC_ENDPOINT + "obtenerCostosPorPlano/", request , Object.class );
 
 
             System.out.println(response.getBody().toString());

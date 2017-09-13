@@ -80,7 +80,7 @@ public class ProveedorServiceImpl implements ProveedorService {
 
             HttpEntity entity = new HttpEntity(headers);
 
-            ResponseEntity<Object> response = restTemplate.postForEntity( PROTEC_ENDPOINT + "ConsultaProveedores", entity , Object.class );
+            ResponseEntity<Object> response = restTemplate.postForEntity( PROTEC_ENDPOINT + "consultaProveedores", entity , Object.class );
 
             response1 =  response.getBody();
 
@@ -111,7 +111,7 @@ public class ProveedorServiceImpl implements ProveedorService {
             map.add("celularProveedor", ""+servicioDTO.getCelularProveedor()+"");
             map.add("horaAsignacion", ""+servicioDTO.getHoraAsignacion()+"");
             map.add("idRvt", ""+servicioDTO.getIdRvt()+"");
-            map.add("idCampania", ""+servicioDTO.getIdCompania()+"");
+            map.add("idCompania", ""+servicioDTO.getIdCompania()+"");
             map.add("idServicio", ""+servicioDTO.getIdServicio()+"");
             map.add("idSubServicio", ""+servicioDTO.getIdSubServicio()+"");
             map.add("tiempoEncuentro", ""+servicioDTO.getTiempoEncuentro()+"");
@@ -119,7 +119,7 @@ public class ProveedorServiceImpl implements ProveedorService {
 
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 
-            ResponseEntity<Object> response = restTemplate.postForEntity( PROTEC_ENDPOINT + "AsignaServicioProveedor", request , Object.class );
+            ResponseEntity<Object> response = restTemplate.postForEntity( PROTEC_ENDPOINT + "asignaServicioProveedor", request , Object.class );
 
             response1 = response.getBody();
 

@@ -2,6 +2,7 @@ package com.airsoftware.protec.protec.control;
 
 
 import com.airsoftware.protec.protec.model.request.ConfirmaContactoDTO;
+import com.airsoftware.protec.protec.model.request.ServicioDTO;
 import com.airsoftware.protec.protec.service.ContactoTerminoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
@@ -28,6 +29,13 @@ public class ContactoTerminoController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(consultaPlacasContactoTermino.confirmaContactoTerminoServicio(confirmaContactoDTO));
+    }
+
+    @PostMapping(value = "/regresarServicioCallCenter")
+    public ResponseEntity<Object> regresarServicioCallCenter(@RequestBody ServicioDTO servicioDTO){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(consultaPlacasContactoTermino.regresarServicioCallCenter(servicioDTO));
     }
 
 }

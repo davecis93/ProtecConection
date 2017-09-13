@@ -8,6 +8,8 @@ public class GetCostosDTO {
 
     private int kilometros;
 
+    private long idPlano;
+
     public long getIdProveedor() {
         return idProveedor;
     }
@@ -30,5 +32,13 @@ public class GetCostosDTO {
 
     public void setKilometros(int kilometros) {
         this.kilometros = kilometros;
+    }
+
+    public long getIdPlano() {
+        return idPlano;
+    }
+
+    public void setIdPlano(long idPlano) {
+        this.idPlano = idPlano;
     }
 }
